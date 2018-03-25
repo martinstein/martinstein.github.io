@@ -1,0 +1,366 @@
+/* the CODE part */
+.logofirst {
+    font-weight: normal;
+}
+
+.logorest {
+    font-weight: bold;
+}
+
+/* XXX: Generated from docutils instead of better <code> tag */
+tt.literal {
+    font-family: 'DejaVu Sans Mono', Monaco,Consolas, monospace;
+}
+
+
+/* --------------------------------------------------------------------------
+   Adapted from Wu-Wei
+
+   We only use 'text-decoration: none' for those link-hovers that are
+   highlighted with a different color (which means we don't need underline
+   highlighting).
+   -------------------------------------------------------------------------- */
+body {
+    background-color: #fff;
+    color: #516064;
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+p {
+    line-height: 1.5em;
+    margin: 0 0 1.5em;
+}
+
+ul {
+    list-style-type: circle;
+}
+
+ol {
+    list-style-type: decimal;
+}
+
+
+/*** Header ******************************************************************/
+/* The next 3 were missing from the customized Bootstrap css */
+.collapse {
+  display: none;
+}
+.collapse.in {
+  display: block;
+}
+.collapsing {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  -webkit-transition: height .35s ease;
+          transition: height .35s ease;
+}
+/* End of missing-from-custom-Bootstrap part */
+
+
+.navbar {
+    /* Reset/override from Bootstrap */
+    min-height: 0;
+    margin: 0;
+    border: 0;
+    background-color: #FFF;
+    border-bottom: 1px solid #d1d9dc;
+}
+
+.navbar-collapse {
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.navbar-nav {
+    /* the -15px are normally on the navbar-brand */
+    margin: 0 0 0 -15px;
+    padding: 0;
+}
+.collapsing .navbar-nav,
+.collapse.in .navbar-nav {
+    margin: 0 -15px;
+}
+
+.navbar-nav > li > a {
+    border-top: 3px solid #fff;
+    line-height: 10px;
+    margin-right: 1.8em;
+    padding: 20px 0 10px;
+    width: 9.0em;
+}
+/* Have to use this separately because of increased specificity */
+.navbar-default .navbar-nav > li > a {
+    color: #6a797d;
+}
+
+.collapsing .navbar-nav > li > a,
+.collapse.in .navbar-nav > li > a {
+    padding: 10px 15px;
+    width: auto;
+    line-height: 20px;
+    margin: 0;
+}
+
+.navbar-nav > li > a:hover {
+    border-color: #0088CC;
+    background-color: #FFF; /* reset from Bootstrap */
+    text-decoration: none;
+}
+.collapsing .navbar-nav > li > a:hover,
+.collapse.in .navbar-nav > li > a:hover {
+    background-color: #e7e7e7;
+}
+
+/* TODO: Actualle set this in the HTML */;
+#menu .current_page_item a {
+    border-color: #6a797d;
+}
+
+.blog-name {
+    font-size: 60px;
+    font-weight: bold;
+    line-height: 1em;
+    margin: 0;
+}
+
+.blog-name a {
+    color: #F7F7F7;
+}
+
+.blog-name a:link, .blog-name a:visited {
+    color: #d1d9dc;
+}
+
+.blog-name a:hover {
+    color: #0088CC;
+    text-decoration: none;
+}
+
+#header {
+    padding-top: 26px;
+    /* We add 18px to the top padding of .main to make things symmetrical
+       again. That way, we also have some spacing in xs mode when the
+       #header disappears (for home/legal/about )*/
+    padding-bottom: 8px;
+}
+
+/*** Index page *********************************************************/
+.description {
+    margin-top: -0.7em;
+    margin-bottom: 26px; /* the same as #header padding-top */
+    font-size: 1.5em;
+    color: #6a797d;
+}
+@media (max-width: 767px) {
+    .description {
+        margin: -0.3em 0 0.5em;
+        font-size: 18px;
+    }
+}
+
+#background-pic {
+    margin-bottom: 2.5em;
+}
+
+#post-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+/*** Posts and Pages *********************************************************/
+.main {
+    padding-top: 18px;
+}
+
+.post {
+    border-top: 1px solid #D1D9DC;
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+@media (max-width: 767px) {
+    .post:first-child {
+        border: 0;
+    }
+}
+
+/* This is meant for our h1 tags, but by using .title we can use h2 for the
+   index/archives pages, and it still works. */
+.title {
+    margin: 0;
+    color:#959ea1;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 1em;
+    padding-bottom: 18px;
+}
+
+.title a:link, .title a:visited {
+    color: #959ea1;
+}
+
+.title a:hover {
+    color: #0088CC;
+    text-decoration: none;
+}
+
+h2 {
+    font-size: 24px;
+    margin: 0 0 18px;
+}
+
+h3 {
+    font-size: 18px;
+    margin: 0 0 18px;
+}
+
+h4 {
+    font-size: 14px;
+    margin: 0 0 12px;
+    text-transform: uppercase;
+}
+
+h5 {
+    font-size: 14px;
+    margin: 0 0 12px;
+    text-transform: uppercase;
+    color: #999;
+}
+
+.post-info {
+    word-wrap: break-word;
+    overflow: hidden; /* XXX: what is this for? */
+}
+
+.timestamp {
+    float: left;
+    font-size: 18px;
+    line-height: 18px;
+    color: #959ea1;
+}
+
+.timestamp a:link, .timestamp a:visited {
+    color:#959ea1;
+}
+@media (max-width: 767px) {
+    .timestamp {
+        margin-bottom: 18px;
+    }
+}
+
+
+blockquote {
+    background: url(img/blockquote.png) no-repeat top left;
+    margin-left: 84px;
+    padding-left: 36px;
+    font-style: italic;
+}
+
+.post-content ul, .post-content ol {
+    margin: 0 0 1.5em;
+    padding: 0;
+}
+
+.post-content ul li, .post-content ol li {
+    margin-left: 3em;
+    padding-left: 0;
+    line-height:1.5em;
+}
+
+.post-content ul li ul, .post-content ol li ol, .post-content ul li ol, .post-content ol li ul {
+    font-size: 1em; /* XXX: Do we need this? */;
+    margin-bottom:0;
+}
+
+.post-content .highlight {
+    /* get scroll-bars for wider code samples */
+    overflow: auto;
+    margin: 0 0 1.5em;
+}
+
+.highlight pre {
+    /* The combination of white-space and word-wrap normal makes sure
+       that code extends to the right and is not wrapped.
+       http://stackoverflow.com/questions/20414155/horizontal-scroll-area-for-displaying-code-snippets-on-tumblr
+       */
+    white-space: pre;
+    word-wrap: normal;
+    padding: 0.5em;
+    margin: 0;
+    font-size: 13.6px;
+}
+
+dl {
+    margin:0 0 1.5em;
+}
+
+dt {
+    font-weight:bold;
+}
+
+dd {
+    /* XXX: Change this */
+    margin-left:8.571em;
+}
+
+acronym, abbr {border-bottom:1px dotted #333;}
+
+hr {color: #d1d9dc; height:1px; background-color:#d1d9dc; border:0;}
+
+hr.docutils {margin-bottom: 1.5em;}
+
+.more-link {display:block; margin-top:1.5em;}
+
+.post-meta-data {
+    padding-top: 18px;
+}
+
+/* About page */
+#profile-pic {
+    /* bottom margin is only relevant in stacked/xs viewing */
+    margin: 0 auto 14px;
+    display: block;
+}
+
+
+/* Logal Notice page */
+#legal-notice .e-contact {
+    display: inline-block;
+    width: 50px;
+}
+
+
+/*** Footer ******************************************************************/
+.footer {
+    margin-top: 4px;
+    margin-bottom: 22px;
+    padding-top: 0.5em;
+    border-top: 3px solid #eee;
+    font-size: 11px;
+    color: #d1d9dc;
+    line-height: 1em;
+}
+
+.footer a:link, .footer a:visited {
+    margin: 0;
+    padding:0;
+    color: #959ea1;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    color: #0088CC;
+    text-decoration: none;
+}
+
+.footer .credits {
+    float: left;
+    margin-right: 25px;
+}
+
+.footer .bottom-link {
+    float: right;
+}

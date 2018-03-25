@@ -1,0 +1,367 @@
+<!doctype html>
+
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+    <head>
+    
+        <meta charset="utf-8">
+        <!-- Use the .htaccess and remove these lines to avoid edge case issues.
+           More info: h5bp.com/i/378 -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        <title>codelike - A Jump Start for Learning Python</title>
+        <meta name="description" content="">
+
+        <!-- Mobile viewport optimized: h5bp.com/viewport -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="https://codelike.com/feed/all.atom.xml" type="application/atom+xml" rel="alternate" title="codelike Full Atom Feed" />
+        <link href="https://codelike.com/feed/rss.xml" type="application/rss+xml" rel="alternate" title="codelike RSS Feed" />
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+        <link rel="stylesheet" href="/theme/css/bootstrap-3.1.1.min.css" />
+        <link rel="stylesheet" href="/theme/css/codelike.css" />
+        <link rel='stylesheet' href='/theme/css/pygments_default.css' type='text/css' />
+
+        <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+
+        <!-- All JavaScript at the bottom, except this Modernizr build.
+             Modernizr enables HTML5 elements & feature detects for optimal performance.
+             Create your own custom Modernizr build: www.modernizr.com/download/ -->
+        <script src="/theme/js/lib/modernizr-2.6.1.custom.min.js"></script>
+        <script src="/theme/js/lib/jquery-1.11.0.min.js"></script>
+        <script src="/theme/js/lib/bootstrap-3.1.1.min.js"></script>
+
+
+
+
+
+        <meta name="tags" content="python" />
+
+    </head>
+
+    <body>
+        <a name="top"></a>
+        <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
+             chromium.org/developers/how-tos/chrome-frame-getting-started -->
+        <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+        <header>
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container menu-row">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand visible-xs" href="#">
+                            <span class="logofirst">CODE</span><span class="logorest">LIKE</span>
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="menu">
+                        <ul class="nav navbar-nav">
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/about/">About</a></li>
+                                <li><a href="/legal_notice/">Legal Notice</a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+
+
+            <div class="container hidden-xs">
+                <div class="row">
+                    <div class="col-sm-12" id="header">
+                        <div class="blog-name">
+                            <a href="https://codelike.com">
+                                <span class="logofirst">CODE</span><span class="logorest">LIKE</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container main" role="main">
+<div class="post">
+        <div class="row">
+            <div class="col-sm-4 post-info">
+                <a name="a-jump-start-for-learning-python"></a>
+                <h1 class="title"><a href="/blog/2011/07/07/a-jump-start-for-learning-python/" rel="bookmark"
+                       title="Permanent Link to A Jump Start for Learning Python">A Jump Start for Learning Python</a></h1>
+                <div class="timestamp">July 07, 2011</div>
+
+            </div>
+
+            <div class="col-sm-8">
+                <div class="post-content">
+                            <p>So you've decided to learn Python. Maybe you've already taken a look at the
+<a class="reference external" href="http://python.org/">Python site</a>. But where to begin? Are there good books
+for learning? Programming exercises? What are essential tools one <em>must</em> know
+about? I've gotten these questions from several interested friends and
+colleagues. Each time, I tried to reply with a helpful mail. At some point I
+realized that a nice write-up as blog post would serve just as well and allow
+other people to benefit, too.</p>
+<p>So, I'd like to help you getting started with Python quickly. But let's be
+clear: This post is meant for people who have some experience with
+programming and want to get pointers for learning Python. If you are new
+to programming, be warned! In that case, this might confuse more than it helps.
+That being said, let's go.</p>
+<div class="section" id="which-python-version">
+<h2>Which Python Version?</h2>
+<p>Perhaps you've noticed already: There are two slightly incompatible Python
+versions out there:</p>
+<ul class="simple">
+<li><strong>2.7</strong>: The 2.x line has been in active use for years. There are tons
+of open source libraries and you can do anything short of flying (wait,
+you actually <a class="reference external" href="http://xkcd.com/353/">can</a>).</li>
+<li><strong>3.2</strong>: This is the new branch, where all future development will take
+place. It's still Python goodness all the way down. As a bonus, it improves
+a few things and removes some old warts. Unfortunately, that makes it
+backwards-incompatible with 2.7. So, <a class="reference external" href="http://python3wos.appspot.com/">not all of those libraries</a> for 2.7 work with 3.2 yet.</li>
+</ul>
+<p>Which one to start with, then? Go with Python 2.7, if:</p>
+<ul class="simple">
+<li>you want to use certain libraries <em>right now</em> and they don't work under
+3.x yet.</li>
+<li>you don't know which libraries you need, but it might be lots of different
+ones.</li>
+<li>you want to work with a web framework. The two largest frameworks
+(<a class="reference external" href="https://www.djangoproject.com/">Django</a> and
+<a class="reference external" href="http://pylonsproject.org/">Pyramid/Pylons</a>) don't operate under 3.x
+as of now.</li>
+</ul>
+<p>Go with Python 3.2, if:</p>
+<ul class="simple">
+<li>you want to use the language for <em>one</em> specific task and the library you
+need is already ported to Python 3.</li>
+<li>you just want to learn the language itself and there's no immediate
+requirement for 3rd party libraries.</li>
+</ul>
+<p>When in doubt, pick whichever one - it won't be difficult to switch later.
+Already got Python on your system, but don't know which one? Just start
+<tt class="docutils literal">python</tt> on the command-line and check the version number it says.</p>
+</div>
+<div class="section" id="where-s-the-documentation">
+<h2>Where's the documentation?</h2>
+<p>If you're like me, you want to know about the official docs, because... well,
+because they're <em>official</em> and probably most up-to-date. A first look at the
+<a class="reference external" href="http://python.org/doc/">documentation</a> might be overwhelming (&quot;Oh
+my god, where do I start??&quot;), so here are the most important parts:</p>
+<ol class="arabic">
+<li><p class="first">The Python Tutorial (<a class="reference external" href="http://docs.python.org/tutorial/">2.7</a> or <a class="reference external" href="http://docs.python.org/3.2/tutorial/">3.2</a>). This is a very nice introduction. I
+would recommend the first 5 chapters up to &quot;5. Data Structures&quot;.</p>
+</li>
+<li><p class="first">The Library Reference (<a class="reference external" href="http://docs.python.org/library/">2.7</a> and <a class="reference external" href="http://docs.python.org/3.2/library/">3.2</a>). All the libraries included by default
+are described here. As the name implies, this is more of a reference
+and less of a learning resource. Still, let me point out three
+important sections that you will <em>definitely</em> need later:</p>
+<ul class="simple">
+<li>Built-in Functions: These are <em>always</em> available in your code and highly
+useful.</li>
+<li>Built-in Types: Shows the data types in the language (booleans, integers,
+lists, ...) and the methods they offer.</li>
+<li>How do you capitalize a string? How to split a string into words? Want
+to know, which other string methods are available? Unfortunately, the
+string documentation is buried deeply within the library reference:
+Click on &quot;5.6 Sequence Types&quot; and then &quot;String Methods&quot;. Oh, the last
+link is hidden <em>within</em> the first big paragraph of text on sequence
+types. I wish I knew why this one is so hard to find.</li>
+</ul>
+<p>Ignore the Library Reference for now, but keep it in mind for later.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="books-online">
+<h2>Books Online</h2>
+<p>Of course, there are also many printed books. But to let you jump right in
+from your computer, here's a selection of ebooks:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://learnpythonthehardway.org/">Learn Python The Hard Way</a> by Zed
+Shaw. A series of 52 exercises that let/make you do things yourself instead
+of just reading them. Very practically oriented (I've heard).</li>
+<li><a class="reference external" href="http://www.greenteapress.com/thinkpython/">Think Python - How to Think Like a Computer Scientist</a>: Often mentioned as a good
+beginner's book that also teaches a bit about programming in general.</li>
+<li><a class="reference external" href="http://www.swaroopch.com/notes/Python">A Byte of Python</a>: Very
+beginner-oriented and easy to start with. I remember this one helped me a
+lot in my early Python days, but back then I didn't know about the other
+books, so I cannot compare them.</li>
+</ul>
+</div>
+<div class="section" id="python-exercises">
+<h2>Python Exercises</h2>
+<p>At some point, only reading tutorials and books gets boring and you might want
+to start writing programs. Besides the exercises in the books above, there are
+some fun online challenges:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://projecteuler.net/">Project Euler</a>: A number of mathematical and algorithmical programming
+problems, where you can track your progress nicely with a personal user
+account. I like it, but its focus on math does more to teach you algorithms
+in general than Python in particular.</li>
+<li><a class="reference external" href="http://www.pythonchallenge.com">Python Challenge</a>: A &quot;programming riddle&quot; in the style of
+<a class="reference external" href="http://www.deathball.net/notpron/">Notpron</a> aimed to teach Python in the
+process. Why I like this very much: It poses challenges in several different
+areas (how to do HTTP-requests in Python, image analysis, ...), so you get
+a broad look at the language and what it can do.</li>
+</ul>
+</div>
+<div class="section" id="python-style-guide">
+<h2>Python Style Guide</h2>
+<p>Should I name my variables in <tt class="docutils literal">CamelCase</tt> or <tt class="docutils literal">lowercase_with_underscore</tt>?
+And what is it about Python's indentation: Do I use 2 spaces? 4 Spaces? Tabs?
+What other conventions should I follow in my code? Some people ignore these
+questions at first and start coding right away. Coding guidelines distract
+them from learning the language itself.</p>
+<p>That is perfectly fine, but it is hard for me to do. When learning a new
+language, I need to know about the &quot;right way&quot;. First, it means I don't have
+to rewrite my code later and I have consistency right from the start. Second,
+the existence and the contents of a style guide reveal something about the
+language's culture. If the guide tells you: &quot;Do whatever the hell you want!&quot;
+or there is none at all, that says something about the language (probably that
+it's C++. Wait, sorry - C++ is the one where there are <a class="reference external" href="http://www.parashift.com/c++-faq-lite/">several</a>, <a class="reference external" href="http://yosefk.com/c++fqa/">contradicting</a> best practices, which makes me feel guilty
+before having written a single line of project code). Third, following the
+guide means that I've got one less item to think about during programming.
+It gets easier to focus on the actual coding, because I don't need to worry
+about pesky style issues. Oh, and last: When everybody writes code
+along the same rules, reading other people's code gets so much easier.
+So, if you're one of those persons that likes to know about coding guidelines:
+Python has exactly one, <a class="reference external" href="http://www.python.org/dev/peps/pep-0008/">official style guide</a> and most Python programmers tend
+to adhere to it.</p>
+</div>
+<div class="section" id="libraries-package-management">
+<h2>Libraries/Package Management</h2>
+<p>Sooner or later, you might want to use some of those thousands of Python
+libraries. Fortunately, Python has a package management system that makes
+things easy for you. Unfortunately, Python has more than one package
+management system, that makes things easy for you. There's:</p>
+<ul>
+<li><p class="first"><a class="reference external" href="http://peak.telecommunity.com/DevCenter/EasyInstall">EasyInstall</a>: It's
+part of the <tt class="docutils literal">setuptools</tt> library, and lots of Python packages tell you to
+simply write:</p>
+<pre class="literal-block">
+easy_install SomePackage
+</pre>
+<p>But this library is <strong>old</strong> and only works on Python 2.x. Do not use it
+anymore.</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://pypi.python.org/pypi/distribute">Distribute</a>, a fork of the
+<tt class="docutils literal">setuptools</tt> library which gives you EasyInstall both on Python 2 <em>and</em>
+3. It also fixes lots of old bugs.</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a>: The new kid on the block. Also,
+the better one. With pip, the syntax is:</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span>pip install SomePackage
+</pre></div>
+<p>Which one, you ask? To keep it short: Use pip! If you are not convinced, read
+<a class="reference external" href="http://pypi.python.org/pypi/pip#pip-compared-to-easy-install">this</a>.
+Ironically, you need setuptools/distribute to install pip. So, here's what you
+do:</p>
+<ol class="arabic simple">
+<li>Download <tt class="docutils literal">distribute_setup.py</tt> from <a class="reference external" href="http://pypi.python.org/pypi/distribute#installation-instructions">here</a> and execute it like this:</li>
+</ol>
+<div class="highlight"><pre><span></span>python distribute_setup.py
+</pre></div>
+<ol class="arabic simple" start="2">
+<li>Download the <a class="reference external" href="https://raw.github.com/pypa/pip/master/contrib/get-pip.py">get-pip.py</a> install
+script (make sure to save it as 'get-pip.py') and run</li>
+</ol>
+<div class="highlight"><pre><span></span>python get-pip.py
+</pre></div>
+<ol class="arabic simple" start="3">
+<li>You're good to go. Use pip for everything else from now on:</li>
+</ol>
+<div class="highlight"><pre><span></span>pip install WhateverPackage
+</pre></div>
+</div>
+<div class="section" id="the-ultimate-playground">
+<h2>The Ultimate Playground</h2>
+<p>Python has an interactive interpreter, that allows you to directly type and
+execute code. No compiling necessary, no text editor to write and save your
+Python file (if you don't want to). It's great for quickly trying out new
+things. In order to start the interpreter, simply run <tt class="docutils literal">python</tt> from the
+shell of your choice.</p>
+<p>Now, wouldn't it be really nice if that interpreter also had automatic
+tab-completion? Enter <a class="reference external" href="http://ipython.scipy.org/moin/">IPython</a>, an
+enhanced Python shell that gives you goodies like auto-completion, a nice
+help system and much more. In order to get it, you need IPython itself and a
+working <tt class="docutils literal">readline</tt> module for the tab-completion. For Python 2.7, that
+means:</p>
+<div class="highlight"><pre><span></span>pip install ipython
+</pre></div>
+<p>Then, you need readline. On Linux, you should have it already. On OS X or
+Windows, probably not (<a class="reference external" href="http://ipython.org/ipython-doc/stable/html/install/install.html#readline">according to this</a>). On Max OS X you therefore
+do:</p>
+<div class="highlight"><pre><span></span>pip install readline
+</pre></div>
+<p>On Windows, you grab a binary <tt class="docutils literal">pyreadline</tt> installer <a class="reference external" href="http://ipython.scipy.org/dist/">right here</a> and run it.</p>
+<p>An experimental IPython branch for Python 3 is now available. In that case,
+it's best if you read the <a class="reference external" href="http://ipython.scipy.org/moin/Python3">IPython Python 3 notes</a> yourself to check out the current
+state of things.</p>
+<p>Once you have IPython installed, whenever you want to use the interactive
+interpreter you simply use <tt class="docutils literal">ipython</tt> instead of <tt class="docutils literal">python</tt>.</p>
+</div>
+<div class="section" id="summary-tl-dr">
+<h2>Summary / tl;dr</h2>
+<ol class="arabic simple">
+<li>Install Python or check which version you already have installed.</li>
+<li>Install <tt class="docutils literal">distribute</tt> and <tt class="docutils literal">pip</tt> for Python (<a class="reference internal" href="#libraries-package-management">details here</a>)</li>
+<li>If you're on Python 2.7, grab <tt class="docutils literal">IPython</tt> (see <a class="reference internal" href="#the-ultimate-playground">The Ultimate Playground</a>
+above)</li>
+<li>Whooo, you can actually start. Do one or more of the following:<ul>
+<li>Take a look at the official Python Tutorial (up to section 5)</li>
+<li>Check out one of the <a class="reference internal" href="#books-online">recommended ebooks</a></li>
+<li>start coding (<a class="reference external" href="http://projecteuler.net/">Project Euler</a>, or <a class="reference external" href="http://www.pythonchallenge.com">Python Challenge</a>, or little
+tools for yourself, or ...)</li>
+</ul>
+</li>
+</ol>
+<p>If anything in this post was particularly helpful (or not helpful at all),
+just send a mail. I'd be happy to improve parts or point out further
+things.</p>
+</div>
+
+
+                </div>
+
+                <div class="clearfix"></div>
+
+
+
+                <div class="post-meta-data">
+                    Categories:
+                        <a href="/tags/python/" rel="category tag">python</a>                </div>
+
+            </div>
+        </div>
+    </div>        </div>
+
+        <footer>
+            <div class="container footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="credits hidden-xs hidden-sm">Powered by <a href="https://blog.getpelican.com/">Pelican</a></div>
+                        <div class="credits">Based on theme 'Wu Wei' by <a href="http://equivocality.com" rel="designer">Jeff Ngan</a></div>
+                        <div class="credits hidden-xs">RSS feeds for <a href="https://codelike.com/feed/rss.xml">Entries</a></div>
+                        <div class="credits"><a href="https://codelike.com/legal_notice/">Legal Notice</a>
+                        </div>
+
+                        <div class="bottom-link"><a href="#top">Back to the top</a></div>
+                    </div>
+                </div>
+            </div>
+
+
+        </footer>
+
+
+    </body>
+</html>

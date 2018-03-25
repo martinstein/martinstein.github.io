@@ -1,0 +1,383 @@
+<!doctype html>
+
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+    <head>
+    
+        <meta charset="utf-8">
+        <!-- Use the .htaccess and remove these lines to avoid edge case issues.
+           More info: h5bp.com/i/378 -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        <title>codelike - How to Make Your Open-Source Project Successful</title>
+        <meta name="description" content="">
+
+        <!-- Mobile viewport optimized: h5bp.com/viewport -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="https://codelike.com/feed/all.atom.xml" type="application/atom+xml" rel="alternate" title="codelike Full Atom Feed" />
+        <link href="https://codelike.com/feed/rss.xml" type="application/rss+xml" rel="alternate" title="codelike RSS Feed" />
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+        <link rel="stylesheet" href="/theme/css/bootstrap-3.1.1.min.css" />
+        <link rel="stylesheet" href="/theme/css/codelike.css" />
+        <link rel='stylesheet' href='/theme/css/pygments_default.css' type='text/css' />
+
+        <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+
+        <!-- All JavaScript at the bottom, except this Modernizr build.
+             Modernizr enables HTML5 elements & feature detects for optimal performance.
+             Create your own custom Modernizr build: www.modernizr.com/download/ -->
+        <script src="/theme/js/lib/modernizr-2.6.1.custom.min.js"></script>
+        <script src="/theme/js/lib/jquery-1.11.0.min.js"></script>
+        <script src="/theme/js/lib/bootstrap-3.1.1.min.js"></script>
+
+
+
+
+
+        <meta name="tags" content="programming" />
+
+    </head>
+
+    <body>
+        <a name="top"></a>
+        <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
+             chromium.org/developers/how-tos/chrome-frame-getting-started -->
+        <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+        <header>
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container menu-row">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand visible-xs" href="#">
+                            <span class="logofirst">CODE</span><span class="logorest">LIKE</span>
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="menu">
+                        <ul class="nav navbar-nav">
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/about/">About</a></li>
+                                <li><a href="/legal_notice/">Legal Notice</a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+
+
+            <div class="container hidden-xs">
+                <div class="row">
+                    <div class="col-sm-12" id="header">
+                        <div class="blog-name">
+                            <a href="https://codelike.com">
+                                <span class="logofirst">CODE</span><span class="logorest">LIKE</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container main" role="main">
+<div class="post">
+        <div class="row">
+            <div class="col-sm-4 post-info">
+                <a name="how-to-make-your-open-source-project-successful"></a>
+                <h1 class="title"><a href="/blog/2013/04/21/how-to-make-your-open-source-project-successful/" rel="bookmark"
+                       title="Permanent Link to How to Make Your Open-Source Project Successful">How to Make Your Open-Source Project Successful</a></h1>
+                <div class="timestamp">April 21, 2013</div>
+
+            </div>
+
+            <div class="col-sm-8">
+                <div class="post-content">
+                            <p>The 'better' an open source project is technically, the more people use it.
+That's what I used to think. But lately I have gotten doubts:  Why are some
+projects more successful than others? Are there technical reasons
+or is it something else? How do some get 10000 Github followers and others
+languish in obscurity? I was hoping there would be a nice, clear answer.
+I think there is - unfortunately not the one I was hoping for.</p>
+<p>But why should we care at all how many people use a certain framework or
+library?</p>
+<ul class="simple">
+<li>A project with more users will receive more bug reports from its users.
+Some of those users will contribute even more to the project, so it
+will get more patches and feature enhancements. It will be more battle-tested
+and grow faster.</li>
+<li>More users, more tutorials, more blog posts, more Stackoverflow questions
+means the learning experience will be better.</li>
+<li>The potential for the project creators, contributors and users to make a living
+off of it will increase. Let's take web application frameworks:
+How many jobs do you know that require &quot;Pyramid&quot; expertise? How many jobs
+are &quot;Django&quot; related? On the
+<a class="reference external" href="http://www.python.org/community/jobs/">Python Job Board</a> I count
+6 mentions of Pyramid. For Django, I stopped counting at 30+ halfway down the
+page.</li>
+</ul>
+<p>But in any one area, there are only so many developers available. Yes, the
+world is big enough for multiple projects in the same space, but in the end,
+software projects compete for developer attention. A few projects will
+dominate and have the biggest user base. These projects &quot;win&quot;.</p>
+<p>Let's take a closer look and compare the situation for some software libraries.
+Of course, if an open source project wants to be a serious contender, it
+should offer:</p>
+<ul class="simple">
+<li>an okay feature-set</li>
+<li>in a package that is not totally buggy</li>
+<li>with a minimum of documentation (the days of &quot;just read the source&quot;
+are over.)</li>
+<li>and a reasonable license (something like AGPL is an instant no-go for lots
+of people.)</li>
+</ul>
+<p>Let's view these as necessary requirements (in the mathematical
+sense), but not sufficient ones.</p>
+<p>Also, in this whole post I'm talking about <em>software libraries</em> -
+stuff meant to be used by other developers - but I'm excluding programming
+languages. The popularity of languages is strongly influenced by other, major
+factors. Take JavaScript, which rises steadily mostly because of a single
+fact: It is present in all browsers. Circumstances like that make it hard to
+draw useful general conclusions. Therefore, let's not talk about languages.</p>
+<p>So, what makes a software project successful?</p>
+<div class="section" id="the-one-which-is-easier-to-use-wins">
+<h2>1) The one which is easier to use wins</h2>
+<p>For instance, <a class="reference external" href="https://www.djangoproject.com/">Django</a> is easier to use out
+of the box than <a class="reference external" href="http://www.pylonsproject.org/">Pyramid</a>:
+It has a nice admin interface, the model and form validation libraries are
+already included and everything fits together nicely.
+<a class="reference external" href="http://jquery.com/">jQuery</a> supports the
+theory, too. Most will agree that it is more beginner-friendly
+than, say, <a class="reference external" href="http://dojotoolkit.org/">Dojo</a> or
+<a class="reference external" href="http://yuilibrary.com/">YUI</a>.</p>
+<p>But the theory does not hold, with two rather big counter-examples: First,
+<a class="reference external" href="http://mercurial.selenic.com/">Mercurial</a> and <a class="reference external" href="http://git-scm.com/">Git</a>.
+Some might find Git <a class="reference external" href="https://git.wiki.kernel.org/index.php/GitSurvey2011#05._Have_you_found_Git_easy_to_use.3F">reasonably easy</a>
+to use, but the majority of people that have used both find
+Mercurial
+<a class="reference external" href="http://stevelosh.com/blog/2010/01/the-real-difference-between-mercurial-and-git/">easier</a>
+to <a class="reference external" href="http://steveko.wordpress.com/2012/02/24/10-things-i-hate-about-git/">deal</a>
+<a class="reference external" href="http://programmers.stackexchange.com/questions/87217/why-is-mercurial-considered-to-be-easier-than-git">with</a>.
+And yet, it didn't win the race against Git. Then there is
+<a class="reference external" href="http://backbonejs.org/">Backbone</a> and its
+competitors <a class="reference external" href="http://knockoutjs.com/">Knockout</a> and
+<a class="reference external" href="http://angularjs.org/">Angular</a>. Backbone is significantly more popular
+(just compare their Github followers or look at the
+<a class="reference external" href="http://backbonejs.org/#examples">projects that use Backbone</a>)
+even though it's harder to use. Some might disagree with that last claim,
+so let's look at hard numbers: The poster application for JS frameworks -
+the <a class="reference external" href="http://addyosmani.github.com/todomvc/">ToDo app</a> - requires way more code
+in Backbone than Angular or Knockout. And a personal data point: For a recent project
+I had to rewrite an old application and replaced Backbone with Angular. The JavaScript
+code size dropped from 2.5K lines of code to around 600. A large
+part of that can be attributed to the change in JS libraries.</p>
+<p>Another theory then...</p>
+</div>
+<div class="section" id="the-faster-runtime-performance-wins">
+<h2>2) The faster runtime performance wins</h2>
+<p>We all know that Git has pretty much won the popularity contest against Mercurial.
+And it is somewhat faster than the latter, so that fits (quick googling gives:
+<a class="reference external" href="http://draketo.de/proj/hg-vs-git-server/test-results.html">http://draketo.de/proj/hg-vs-git-server/test-results.html</a>,
+<a class="reference external" href="http://xrunhprof.wordpress.com/2011/04/11/mercurial-vs-git-performance/">http://xrunhprof.wordpress.com/2011/04/11/mercurial-vs-git-performance/</a>,
+<a class="reference external" href="http://laserjock.wordpress.com/2008/05/09/bzr-git-and-hg-performance-on-the-linux-tree/">http://laserjock.wordpress.com/2008/05/09/bzr-git-and-hg-performance-on-the-linux-tree/</a>
+).</p>
+<p>People also like to say that Backbone is more lightweight and faster than
+the likes of Knockout and <a class="reference external" href="http://emberjs.com/">Ember</a>.
+Jeremy Ashkenas, Backbone's creator, posted
+a benchmark to Hacker News showing how much faster it is than Ember
+(<a class="reference external" href="http://news.ycombinator.com/item?id=3616820">http://news.ycombinator.com/item?id=3616820</a>). However, the benchmark
+was somewhat artificial, and you might notice a link between who created the
+benchmark and which framework is shown in a favorable light.</p>
+<p>But still, the public perception is that Backbone has a faster runtime
+performance and it lets you tweak and optimize things better. So that's why it is
+more popular than Ember, Angular and so on, right?</p>
+<p>But wait, what about Rails? For a long
+time, everybody's favorite Ruby web framework had a reputation of being slow. I
+am too lazy to come up with examples, but if you don't believe me, just google
+'Rails slow' or 'Rails doesn't scale'. Here is a small benchmark:
+<a class="reference external" href="http://blog.curiasolutions.com/the-great-web-framework-shootout/">http://blog.curiasolutions.com/the-great-web-framework-shootout/</a>.
+And yet Rails got hugely popular and it single-handedly
+catapulted Ruby into the group of mainstream languages. Or what about
+Pylons/Pyramid compared to Django? The benchmark above also shows
+Pyramid as faster than Django. Yet, Django's community is probably an order of
+magnitude larger than Pyramid's.</p>
+<p>So this theory holds neither. What about the next one?</p>
+</div>
+<div class="section" id="the-more-hacker-like-one-wins">
+<h2>3) The more &quot;hacker-like&quot; one wins.</h2>
+<p>I don't have an exact definition of &quot;hacker-like&quot;, so let me try to describe it:
+The software that let's you fiddle and tweak more. The software that is closer
+to the metal and uses less high-level magic. The software that might require you
+to write more low-level commands, but in turn, you know exactly what's happening.</p>
+<p>Again we could come up with Git and Backbone in support of the theory. But
+again, the counter examples are similar: Rails and Django are both more
+monolithic and their structure is more rigid than Pylons/Pyramid. If you have special
+requirements, hacking and adapting a Pyramid project would be easier than
+bending Django into the shape you need. Yet, Rails and Django are far bigger.</p>
+<p>You could also argue that YUI stays closer to &quot;normal&quot;
+Javascript as jQuery, which is almost like its own little
+mini-language on top of Javascript. Rumour has it that some fledgling web developers
+even skip the whole Javascript part and only learn to use jQuery. So jQuery
+is more removed from Javascript and more high-level, alright. That hasn't stopped it
+from getting hugely popular at all.</p>
+<p>Getting impatient yet? Wondering when the heck I'll come to the point? Okay,
+here it is.</p>
+</div>
+<div class="section" id="the-one-created-earlier-wins">
+<h2>4) The one created earlier wins.</h2>
+<p>&quot;Are you kidding me?&quot; you're probably thinking right now. &quot;So you're
+saying all that technical stuff doesn't matter? Ease-of-use? Runtime performance?
+Hackability?&quot; Well, let's look at some facts:</p>
+<ul class="simple">
+<li>Rails basically started the trend of modern MVC-frameworks in 2004. When it
+arrived, there was no other framework like it and it took the throne of
+most popular web framework by storm.</li>
+<li>Git was released before Mercurial.</li>
+<li>Backbone was the first of the new breed of Javascript frameworks. Angular,
+Knockout, Ember, Batman, you name it - they all came later.</li>
+<li>Within the Python world, Django came first in July 2005, Turbogears second
+and Pylons third. Django has kept its lead in popularity ever since.</li>
+<li>Twitter Bootstrap arrived on the scene one month before Zurb's Foundation.
+At this very moment, it has 48.800 followers on Github versus the
+10.800 for the latter. To be fair, it seems that Bootstrap got inspired
+heavily by ZURB's work done before (<a class="reference external" href="http://news.ycombinator.com/item?id=4588826">http://news.ycombinator.com/item?id=4588826</a>),
+but from a public release perspective, it came first.</li>
+</ul>
+<p>Ah, but wait! If you followed the timelines
+closely back then, you might know that Git and Mercurial almost arrived
+at the same time. If we believe Wikipedia, then Git was released April 7th in
+2005 whereas Mercurial's initial version was published April 19th. So 12 days are
+enough of a head start to lead to a huge success like Git's?</p>
+<p>And what about YUI? Depending on what you count as public release date of
+jQuery, YUI even came before jQuery (Wikipedia claims John Resig presented jQuery
+in January 2006 at a BarCamp. It also says the initial release was August 26 in
+the same year. YUI came February 2006). The jQuery/YUI and Git/Mercurial
+timelines are not exactly supporting evidence for this theory.</p>
+<p>I lied. &quot;The earlier one wins&quot; is not the point I was going to make. Yes, the
+release date is an important factor, but it is not the deciding one. However, it
+helps immensely.</p>
+<p>So what is it then?</p>
+</div>
+<div class="section" id="the-one-with-more-buzz-wins">
+<h2>5) The one with more buzz wins.</h2>
+<p>Plain and simple. Call it PR, call it momentum,
+but the core message stays the same. Git
+didn't win the race because of its 12-day lead. In the beginning, it got more
+users because the name &quot;Linus Torvalds&quot; was behind it. Later, it got even
+more popular because of Github. Mercurial on the other hand - well, it didn't
+have its own Github. When <a class="reference external" href="https://bitbucket.org/">Bitbucket</a> arrived on the
+scene, it was already too late and the social pressure to put your project on
+Github was too high.</p>
+<p>In the same vein, did you know that Tom Dale + Yehuda Katz &lt; half-a-Jeremy?
+Wait, what? Tom and Yehuda are the creators of Ember, Jeremy is the
+head behind Backbone. If you add &quot;Team Ember's&quot; karma on Hacker News
+you don't even get half of Jeremy's. In other words, Jeremy is way more
+active on HN. I can hardly remember a discussion about Backbone where he
+didn't pop in and provide positive commentary. Probably he's
+just very passionate about his framework, but his words definitely help to
+spread the Backbone enthusiasm. What about the Angular team? I am not sure
+if they even have usernames on HN.</p>
+<p>I could go an about all of the examples mentioned above and every single one
+of them fits this theory. I'll try to keep it short:</p>
+<ul class="simple">
+<li>Rails? Pushed by DHH.</li>
+<li>Django? Way better marketing than Pylons back then. Django's tagline: &quot;The
+Web framework for perfectonists with deadlines&quot;. How smooth is that?!</li>
+<li>Pyramid on the other hand? It doesn't even have its own domain but is hidden
+within the <a class="reference external" href="http://www.pylonsproject.org/">Pylons Project</a>.
+(Sorry for that. I very much like Pyramid and it was the main choice
+for my side project. But in the PR department, it's lacking.)</li>
+</ul>
+<p>jQuery and YUI? The former had John Resig constantly promoting it, whereas
+YUI was from a relatively unknown team within Yahoo!. And Yahoo never had the cool reputation that
+would have helped. Twitter's Bootstrap? The association with the name &quot;Twitter&quot;
+probably would have been enough to make it big - Twitter is young and hip after
+all (or used to be, back when Bootstrap was released). But there's more.
+Just look at Bootstrap:
+The project says it is &quot;Designed and built with all the love in the world&quot;.
+There is something about this phrase that really annoys me,
+but it delivers a clear message: &quot;We are young, feel-good
+programmers and not your standard corporate drones.&quot; They
+avoid semicolons in their javascript code, because that's
+how the cool kids write javascript these days - score another point for the
+young and hip image. <a class="reference external" href="https://twitter.com/fat">One</a> of the creators even
+has his blog on an xxx-domain. By now, you should
+realize one thing: They are really good at marketing and presenting themselves
+as the cool guys. Which, I'd argue, has helped their project's success immensely.
+(Just to make this clear: While I'm not
+a fan of being bludgeoned over the head with the oh-so-hip attitude, the Bootstrap
+guys have built something impressive. I have used Bootstrap for multiple projects
+and it was a huge time saver. Simply blank out the puddle of hipsterness they
+make you wade through.)</p>
+<p>To be honest, this conclusion makes me somewhat sad. I would have preferred
+if the reasons for projects growing bigger and more successful were more
+technical. Alas, it seems that code plays the smaller role. The
+buzz, the presence in the blogosphere, the activity on HackerNews,
+the coolness factor seem to count more.</p>
+</div>
+<div class="section" id="summary-tl-dr">
+<h2>Summary / tl;dr</h2>
+<p>If you create or maintain an open source project and want to make it big:
+Generate buzz!</p>
+</div>
+<div class="section" id="p-s">
+<h2>P.S.</h2>
+<p>On a more positive note: Instead of playing up the coolness
+factor of your project, you and your community should write good
+tutorials, blog posts, showcases and pump out regular releases. That way,
+the momentum you generate is not based on buzz for buzz's sake but has
+actual meaning. That's the right kind of buzz.</p>
+<br>
+<br>
+<br><hr class="docutils" />
+<p>Further reading:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://hacks.mozilla.org/2013/05/how-to-spread-the-word-about-your-code/">How to Spread The Word About Your Code</a> (thanks <a class="reference external" href="http://www.reddit.com/r/programming/comments/1ex541/how_to_make_your_opensource_project_successful/ca4rupk">dhaffner</a> on r/programming for the suggestion)</li>
+</ul>
+</div>
+
+
+                </div>
+
+                <div class="clearfix"></div>
+
+
+
+                <div class="post-meta-data">
+                    Categories:
+                        <a href="/tags/programming/" rel="category tag">programming</a>                </div>
+
+            </div>
+        </div>
+    </div>        </div>
+
+        <footer>
+            <div class="container footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="credits hidden-xs hidden-sm">Powered by <a href="https://blog.getpelican.com/">Pelican</a></div>
+                        <div class="credits">Based on theme 'Wu Wei' by <a href="http://equivocality.com" rel="designer">Jeff Ngan</a></div>
+                        <div class="credits hidden-xs">RSS feeds for <a href="https://codelike.com/feed/rss.xml">Entries</a></div>
+                        <div class="credits"><a href="https://codelike.com/legal_notice/">Legal Notice</a>
+                        </div>
+
+                        <div class="bottom-link"><a href="#top">Back to the top</a></div>
+                    </div>
+                </div>
+            </div>
+
+
+        </footer>
+
+
+    </body>
+</html>

@@ -1,0 +1,525 @@
+<!doctype html>
+
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+    <head>
+    
+        <meta charset="utf-8">
+        <!-- Use the .htaccess and remove these lines to avoid edge case issues.
+           More info: h5bp.com/i/378 -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        <title>codelike - How to Serialize SQLALchemy Objects to JSON in Pyramid</title>
+        <meta name="description" content="">
+
+        <!-- Mobile viewport optimized: h5bp.com/viewport -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="https://codelike.com/feed/all.atom.xml" type="application/atom+xml" rel="alternate" title="codelike Full Atom Feed" />
+        <link href="https://codelike.com/feed/rss.xml" type="application/rss+xml" rel="alternate" title="codelike RSS Feed" />
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+        <link rel="stylesheet" href="/theme/css/bootstrap-3.1.1.min.css" />
+        <link rel="stylesheet" href="/theme/css/codelike.css" />
+        <link rel='stylesheet' href='/theme/css/pygments_default.css' type='text/css' />
+
+        <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+
+        <!-- All JavaScript at the bottom, except this Modernizr build.
+             Modernizr enables HTML5 elements & feature detects for optimal performance.
+             Create your own custom Modernizr build: www.modernizr.com/download/ -->
+        <script src="/theme/js/lib/modernizr-2.6.1.custom.min.js"></script>
+        <script src="/theme/js/lib/jquery-1.11.0.min.js"></script>
+        <script src="/theme/js/lib/bootstrap-3.1.1.min.js"></script>
+
+
+
+
+
+        <meta name="tags" content="python" />
+        <meta name="tags" content="pyramid" />
+        <meta name="tags" content="sqlalchemy" />
+
+    </head>
+
+    <body>
+        <a name="top"></a>
+        <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
+             chromium.org/developers/how-tos/chrome-frame-getting-started -->
+        <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+        <header>
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container menu-row">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand visible-xs" href="#">
+                            <span class="logofirst">CODE</span><span class="logorest">LIKE</span>
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="menu">
+                        <ul class="nav navbar-nav">
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/about/">About</a></li>
+                                <li><a href="/legal_notice/">Legal Notice</a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+
+
+            <div class="container hidden-xs">
+                <div class="row">
+                    <div class="col-sm-12" id="header">
+                        <div class="blog-name">
+                            <a href="https://codelike.com">
+                                <span class="logofirst">CODE</span><span class="logorest">LIKE</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container main" role="main">
+<div class="post">
+        <div class="row">
+            <div class="col-sm-4 post-info">
+                <a name="how-to-serialize-sqlalchemy-objects-to-json-in-pyramid"></a>
+                <h1 class="title"><a href="/blog/2015/07/19/how-to-serialize-sqlalchemy-objects-to-json-in-pyramid/" rel="bookmark"
+                       title="Permanent Link to How to Serialize SQLALchemy Objects to JSON in Pyramid">How to Serialize SQLALchemy Objects to JSON in Pyramid</a></h1>
+                <div class="timestamp">July 19, 2015</div>
+
+            </div>
+
+            <div class="col-sm-8">
+                <div class="post-content">
+                            <p>So you are working on the backend for a single-page application in
+Pyramid and need to serialize all kinds of objects to JSON? In this post
+we'll work our way up from the basic JSON-serialization built into Pyramid
+to a powerful approach for serializing SQLAlchemy objects.</p>
+<div class="section" id="serializing-simple-data-structures">
+<h2>Serializing Simple Data Structures</h2>
+<p>Pyramid comes with this great concept called <a class="reference external" href="http://docs.pylonsproject.org/projects/pyramid/en/1.5-branch/narr/renderers.html#renderers">renderers</a>:
+You simply return data from your view function (other MVC frameworks
+call this part the controller) and the renderer is responsible for turning the
+data into reasonable output. The renderer might be a jinja-template that
+uses the data to render some HTML result. But in this post we are interested
+in Pyramid's built-in JSON renderer, which already knows how to deal with Python's
+basic types. The view below:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyramid.view</span> <span class="kn">import</span> <span class="n">view_config</span>
+
+<span class="nd">@view_config</span><span class="p">(</span><span class="n">route_name</span><span class="o">=</span><span class="s1">&#39;user_basic&#39;</span><span class="p">,</span> <span class="n">renderer</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_user_basic</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bruce Wayne&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;super_hero&quot;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="s2">&quot;friend_ids&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+    <span class="p">}</span>
+</pre></div>
+<p>will automatically be turned into the JSON structure that we would expect
+(formatted nicely for this post):</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bruce Wayne&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;super_hero&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;friend_ids&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+<p>As you can see, the JSON-renderer already knows how to deal with dictionaries,
+strings, integers, ... . It uses Python's built-in <tt class="docutils literal">json</tt> library, so it knows
+how to deal with Python's basic data types.</p>
+</div>
+<div class="section" id="serializing-custom-obects">
+<h2>Serializing Custom Obects</h2>
+<p>Sooner or later, you will want to serialize an object where the JSON-renderer
+doesn't know what to do with it. When I start a new project, the very first
+case where this happens is usually Python's <tt class="docutils literal">datetime</tt> instances. Because
+of the additional datetime-object, the following won't work... yet:</p>
+<div class="highlight"><pre><span></span><span class="nd">@view_config</span><span class="p">(</span><span class="n">route_name</span><span class="o">=</span><span class="s1">&#39;user_custom&#39;</span><span class="p">,</span> <span class="n">renderer</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_user_custom</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bruce Wayne&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;super_hero&quot;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="s2">&quot;friend_ids&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+        <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+    <span class="p">}</span>
+</pre></div>
+<p>What we'll get so far is an error message:</p>
+<div class="highlight"><pre><span></span><span class="ne">TypeError</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">JSON</span> <span class="n">serializable</span>
+</pre></div>
+<p>One way to tell Pyramid how to serialize an object to JSON is to add a
+<tt class="docutils literal">__json__</tt>-method to the relevant class. We'll look at that option later.
+In the Python world, it is
+generally frowned upon to <a class="reference external" href="https://en.wikipedia.org/wiki/Monkey_patch">monkey patch</a> additional attributes to classes from the outside. <tt class="docutils literal">datetime</tt> is an object
+from the standard library, so we definitely should not extend that with
+a magic <tt class="docutils literal">__json__</tt> method. That would be bad style.</p>
+<p>For these cases (where we do not want to or cannot modify existing code), we
+can use Pyramid`s <a class="reference external" href="http://docs.pylonsproject.org/projects/pyramid/en/1.5-branch/narr/renderers.html#using-the-add-adapter-method-of-a-custom-json-renderer">add_adapter</a>  functionality. Let's use that in a file called
+<tt class="docutils literal">jsonexample/util/jsonhelpers</tt>:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">pyramid.renderers</span> <span class="kn">import</span> <span class="n">JSON</span>
+
+<span class="k">def</span> <span class="nf">custom_json_renderer</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a custom json renderer that can deal with some datetime objects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">datetime_adapter</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">time_adapter</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+
+    <span class="n">json_renderer</span> <span class="o">=</span> <span class="n">JSON</span><span class="p">()</span>
+    <span class="n">json_renderer</span><span class="o">.</span><span class="n">add_adapter</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">,</span> <span class="n">datetime_adapter</span><span class="p">)</span>
+    <span class="n">json_renderer</span><span class="o">.</span><span class="n">add_adapter</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">time_adapter</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">json_renderer</span>
+</pre></div>
+<p>That way we tell Pyramid to use the given functions <tt class="docutils literal">datetime_adapter</tt>
+and <tt class="docutils literal">time_adapter</tt> for turning objects of type <tt class="docutils literal">datetime.datetime</tt> or
+<tt class="docutils literal">datetime.time</tt> into JSON. The only thing missing is to make Pyramid
+actually use our custom renderer. That happens in our main <tt class="docutils literal">__init__.py</tt>:</p>
+<div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="kn">from</span> <span class="nn">.util.jsonhelpers</span> <span class="kn">import</span> <span class="n">custom_json_renderer</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">global_config</span><span class="p">,</span> <span class="o">**</span><span class="n">settings</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">Configurator</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">settings</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">add_renderer</span><span class="p">(</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="n">custom_json_renderer</span><span class="p">())</span>
+
+    <span class="o">...</span>
+    <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">make_wsgi_app</span><span class="p">()</span>
+</pre></div>
+<p>And with that, our object is turned into the JSON we want:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bruce Wayne&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;super_hero&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;friend_ids&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+  <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2015-01-23T16:02:15&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="serialization-of-sqlalchemy-objects-with-json">
+<h2>Serialization of SQLAlchemy Objects with __json__</h2>
+<p>If you're working with Pyramid, it is likely that you'll also be using
+<a class="reference external" href="http://www.sqlalchemy.org/">http://www.sqlalchemy.org/</a>. If yes, Pyramid
+will not know out of the box how to serialize SQLAlchemy-mapped objects
+to JSON. Let's assume we have this model:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="kn">import</span> <span class="n">declarative_base</span>
+<span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;users&#39;</span>
+
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Text</span><span class="p">)</span>
+    <span class="n">super_hero</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Boolean</span><span class="p">)</span>
+    <span class="n">created_at</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">DateTime</span><span class="p">)</span>
+</pre></div>
+<p>coupled with this view:</p>
+<div class="highlight"><pre><span></span><span class="nd">@view_config</span><span class="p">(</span><span class="n">route_name</span><span class="o">=</span><span class="s1">&#39;sqlalchemy_simple&#39;</span><span class="p">,</span> <span class="n">renderer</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_user_sqlalchemy_simple</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">DBSession</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">User</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Bruce Wayne&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">user</span>
+</pre></div>
+<p>Once again, we'll get a <tt class="docutils literal">TypeError: &lt;jsonexample.models.User object at 0x0464A4D0&gt; is not JSON serializable</tt> when we call the new view. This time, we will use Pyramid's
+<a class="reference external" href="http://docs.pylonsproject.org/projects/pyramid/en/1.5-branch/narr/renderers.html#using-a-custom-json-method">other option</a> for JSON-serialization: We add a
+<tt class="docutils literal">__json__</tt>-method to the relevant class that transforms our object
+into something usable. We can do that for all SQLAlchemy-models by
+extending the <tt class="docutils literal">Base</tt> class that our models inherit from.</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__json__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">json_exclude</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;__json_exclude__&#39;</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="c1"># Do not serialize &#39;private&#39; attributes</span>
+                <span class="c1"># (SQLAlchemy-internal attributes are among those, too)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">json_exclude</span><span class="p">}</span>
+
+<span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">(</span><span class="bp">cls</span><span class="o">=</span><span class="n">Base</span><span class="p">)</span>
+</pre></div>
+<p>Our new <tt class="docutils literal">Base</tt> class transforms our model-instances into a Python
+dict by iterating over the internal <tt class="docutils literal">__dict__</tt> of the model. Note that
+SQLAlchemy stores its internal data in an attribute called
+<tt class="docutils literal">_sa_instance_state</tt>. We want to avoid serializing that and
+other private attributes starting with <tt class="docutils literal">_</tt>, so we exclude those
+from the result.</p>
+<p>Very often there are other specific attributes of your models that should
+not be serialized to JSON either. Imagine a password-hash
+field of your User-objects or other data that should not be public.
+For this case the above Base class allows you to exclude certain
+attribute by adding their names to <tt class="docutils literal">__json_exclude__</tt>. Let's say that
+<tt class="docutils literal">created_at</tt> is an internal attribute that shouldn't be serialized
+for our public API. Here's what that looks like:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;users&#39;</span>
+    <span class="n">__json_exclude__</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="s2">&quot;created_at&quot;</span><span class="p">])</span>
+
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Text</span><span class="p">)</span>
+    <span class="n">super_hero</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Boolean</span><span class="p">)</span>
+    <span class="n">created_at</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">DateTime</span><span class="p">)</span>
+</pre></div>
+<p>Our Base class together with our <tt class="docutils literal">__json_exclude__</tt> gives us the following
+JSON-result:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bruce Wayne&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;super_hero&quot;</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="advanced-serialization-with-marshmallow">
+<h2>Advanced Serialization with Marshmallow</h2>
+<p>The __json__-approach above is alright for basic cases, but falls short
+in more demanding situations. Imagine these:</p>
+<ol class="arabic simple">
+<li>Depending on the chosen route or view method, you want to serialize
+an object with or without its attached relationships.</li>
+<li>Perhaps the client-side should be able to specify with a GET-parameter
+whether they want the attached relationships or only the central
+object.</li>
+<li>Depending on the currently logged in user, you
+want to serialize the full SQLAlchemy-mapped object (for admin users) or
+a reduced set of attributes only (for normal users).</li>
+</ol>
+<p>In all three cases, our approach with <tt class="docutils literal">__json_exclude__</tt> is not enough,
+because the excluded attributes are hard-coded per class.
+Cases two and three are even more challenging because the decision which
+attributes must be serialized happens at runtime. At this point, the
+<a class="reference external" href="http://marshmallow.readthedocs.org">marshmallow</a> library comes in very
+handy. marshmallow allows you to specify a schema for serializing/deserializing
+objects to/from JSON. We are interested in the serialization part. For
+this part, you want the 2.0-version of marshmallow, which is still in
+beta but very much usable.</p>
+<p>The marshmallow docs start with an example like this for defining a schema:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">marshmallow</span> <span class="kn">import</span> <span class="n">Schema</span><span class="p">,</span> <span class="n">fields</span>
+
+<span class="k">class</span> <span class="nc">ArtistSchema</span><span class="p">(</span><span class="n">Schema</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Str</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">AlbumSchema</span><span class="p">(</span><span class="n">Schema</span><span class="p">):</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Str</span><span class="p">()</span>
+    <span class="n">release_date</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Date</span><span class="p">()</span>
+    <span class="n">artist</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">Nested</span><span class="p">(</span><span class="n">ArtistSchema</span><span class="p">)</span>
+</pre></div>
+<p>That looks alright, but the parts with <tt class="docutils literal">fields.Str()</tt>/<tt class="docutils literal">fields.Date()</tt>/...
+would mean we have to duplicate lots of information
+from our User-model above. We have already defined <tt class="docutils literal">name</tt> as a string-column
+for SQLAlchemy, we don't to define it again as field <tt class="docutils literal">fields.Str()</tt> for
+marshmallow. Fortunately, there's a shorter
+way to declare a schema with marshmallow. In our case, that would simply be:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">marshmallow</span> <span class="kn">import</span> <span class="n">Schema</span>
+
+<span class="k">class</span> <span class="nc">UserSchema</span><span class="p">(</span><span class="n">Schema</span><span class="p">):</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;super_hero&quot;</span><span class="p">,</span> <span class="s2">&quot;created_at&quot;</span><span class="p">)</span>
+</pre></div>
+<p>We can now explicitly include or exclude attributes from serialization, for
+example:</p>
+<div class="highlight"><pre><span></span><span class="n">user</span> <span class="o">=</span> <span class="n">DBSession</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">User</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">full_schema</span> <span class="o">=</span> <span class="n">UserSchema</span><span class="p">()</span>
+<span class="n">result</span><span class="p">,</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">full_schema</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="c1"># {&#39;created_at&#39;: &#39;2015-07-19T18:09:13.875568+00:00&#39;,</span>
+<span class="c1">#  &#39;name&#39;: &#39;Bruce Wanye&#39;, &#39;super_hero&#39;: True, &#39;id&#39;: 1}</span>
+
+<span class="c1"># You can blacklist certain attributes</span>
+<span class="n">reduced_schema</span> <span class="o">=</span> <span class="n">UserSchema</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;created_at&quot;</span><span class="p">))</span>
+<span class="n">result</span><span class="p">,</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">reduced_schema</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="c1"># {&#39;name&#39;: &#39;Bruce Wanye&#39;, &#39;super_hero&#39;: True}</span>
+
+<span class="c1"># Or whitelist attributes</span>
+<span class="n">other_schema</span> <span class="o">=</span> <span class="n">UserSchema</span><span class="p">(</span><span class="n">only</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;super_hero&quot;</span><span class="p">))</span>
+<span class="n">result</span><span class="p">,</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">other_schema</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="c1"># {&#39;name&#39;: &#39;Bruce Wanye&#39;, &#39;super_hero&#39;: True}</span>
+</pre></div>
+<p>An initial approach might be to use such a schema directly in the view:</p>
+<div class="highlight"><pre><span></span><span class="nd">@view_config</span><span class="p">(</span><span class="n">route_name</span><span class="o">=</span><span class="s1">&#39;sqlalchemy_marshmallow&#39;</span><span class="p">,</span> <span class="n">renderer</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_user_sqlalchemy_marshmallow</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">DBSession</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">User</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Bruce Wayne&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
+
+    <span class="c1"># Now we select the schema and which fields to be included/excluded</span>
+    <span class="c1"># based on some runtime condition. Imagine a test if the currently</span>
+    <span class="c1"># logged in user is admin or not.</span>
+    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">user_schema</span> <span class="o">=</span> <span class="n">UserSchema</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">user_schema</span> <span class="o">=</span> <span class="n">UserSchema</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;created_at&quot;</span><span class="p">))</span>
+
+    <span class="n">data</span><span class="p">,</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">user_schema</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span>
+</pre></div>
+<p>As you can see, we can decide during runtime which attributes we'd like
+to include or exclude, which is very nice. It's not part of our example,
+but marshmallow works nicely for nested attributes (e.g.
+SQLAlchemy-relationships), too. You should read the marshmallow-docs about
+<a class="reference external" href="http://marshmallow.readthedocs.org/en/latest/nesting.html">Nesting Schemas</a>
+for that.</p>
+<p>There's still one problem: marshmallow has its own way of rendering all
+those fields, for example datetime-objects. All the JSON-adapters we defined
+earlier won't be used by marshmallow. That's bad because then we get
+different serializations of datetime-objects depending on whether we
+use marshmallow in a view or not. So how can we force marshmallow not
+to use its internal type-mappings? That's pretty easy. We override the
+type mappings and use that schema as the basis of our user-schema instead:</p>
+<div class="highlight"><pre><span></span><span class="c1"># in util/jsonhelpers.py</span>
+<span class="k">class</span> <span class="nc">RenderSchema</span><span class="p">(</span><span class="n">Schema</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Schema to prevent marshmallow from using its default type mappings.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">TYPE_MAPPING</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+<span class="c1"># In models.py</span>
+<span class="k">class</span> <span class="nc">UserSchema</span><span class="p">(</span><span class="n">RenderSchema</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<div class="section" id="integration-of-marshmallow-into-json-renderer">
+<h2>Integration of Marshmallow into JSON-Renderer</h2>
+<p>The marshmallow-approach above is nice and clean, but there are two things
+that I'm not completely happy about:</p>
+<ol class="arabic simple">
+<li>You have to do the part with <tt class="docutils literal">data, errors = schema.dump(some_obj)</tt> in every
+view where you want to use marshmallow.</li>
+<li>I really like that Pyramid lets you return domain-objects from
+your views and the renderer turns it into the final result, because
+that's very nice for unit-testing: You can directly inspect the
+returned objects in your unit tests. However, in the marshmallow approach
+above you don't return your actual SQLAlchemy-objects anymore.
+Instead you return the  <tt class="docutils literal">data</tt> dict created by marshmallow.</li>
+</ol>
+<p>Wouldn't it be nice if you could return your SQLAlchemy-objects as usual
+and the renderer knew how to transform it into JSON based on a marshmallow
+schema? There is a way, though it's a bit tricky and relies
+on Pyramid internals. If you use this, be advised that it might break
+on Pyramid version updates and is not officially supported.</p>
+<p>Still, I like the approach for using it in Pyramid views so much that I
+want to post this, too. First, we directly inherit from Pyramid's
+JSON-renderer as follows:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyramid.renderers</span> <span class="kn">import</span> <span class="n">JSON</span>
+
+<span class="k">class</span> <span class="nc">SchemaJsonRenderer</span><span class="p">(</span><span class="n">JSON</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extends Pyramid&#39;s JSON renderer with marshmallow-serialization.</span>
+
+<span class="sd">    When a view-method defines a marshmallow Schema as request.render_schema,</span>
+<span class="sd">    that schema will be used for serializing the return value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If a schema is present, replace value with output from schema.dump(..).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">original_render</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">schema_render</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
+            <span class="n">request</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;request&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">request</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;render_schema&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span> <span class="n">Schema</span><span class="p">)):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">value</span><span class="p">,</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">render_schema</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="n">errors</span> <span class="o">=</span> <span class="bp">True</span>
+
+                <span class="k">if</span> <span class="n">errors</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">HTTPInternalServerError</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="s2">&quot;Serialization failed.&quot;</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">original_render</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">system</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">schema_render</span>
+</pre></div>
+<p>Second, if you want to use a certain schema for rendering your output, simply
+attach it to <tt class="docutils literal">request</tt> as <tt class="docutils literal">request.render_schema</tt> in your view:</p>
+<div class="highlight"><pre><span></span><span class="nd">@view_config</span><span class="p">(</span><span class="n">route_name</span><span class="o">=</span><span class="s1">&#39;marshmallow_integrated&#39;</span><span class="p">,</span> <span class="n">renderer</span><span class="o">=</span><span class="s1">&#39;json2&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_user_marshmallow_integrated</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">DBSession</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">User</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Bruce Wayne&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">render_schema</span> <span class="o">=</span> <span class="n">UserSchema</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">render_schema</span> <span class="o">=</span> <span class="n">UserSchema</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;created_at&quot;</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">user</span>
+</pre></div>
+<p>Note that I've defined the <tt class="docutils literal">SchemaJsonRenderer</tt> as renderer <tt class="docutils literal">json2</tt> in
+__init__.py, so the code for our example can use both renderers separately.
+And just like that (yes, I know, it took a while) you can render your
+SQLAlchemy-objects to JSON simply by attaching a schema as
+<tt class="docutils literal">request.render_schema</tt> in your view.</p>
+<p>By the way, you can find the complete source-code of this blog post at:
+<a class="reference external" href="https://github.com/martinstein/json-example">https://github.com/martinstein/json-example</a></p>
+<p>The commits follow the narrative of this post so you can follow step by step
+if you want. The most up to date commit contains all the approaches mentioned
+above. They are available at the routes <tt class="docutils literal">&quot;basic&quot;</tt>, <tt class="docutils literal">&quot;custom&quot;</tt>,
+<tt class="docutils literal">&quot;sqlalchemy_simple&quot;</tt>, <tt class="docutils literal">&quot;sqlalchemy_marshmallow&quot;</tt> and
+<tt class="docutils literal">&quot;marshmallow_integrated&quot;</tt>.
+When you clone the repository, don't forget to run these commands once:</p>
+<div class="highlight"><pre><span></span><span class="c1"># instead of the next line, you can also use: pip install -e .</span>
+python setup.py develop
+initialize_json-example_db development.ini
+</pre></div>
+<p>And then simply run your local server with</p>
+<div class="highlight"><pre><span></span>pserve development.ini
+</pre></div>
+<p>The source-code of the repository is not necessarily structured in a way
+that you would/should structure a larger project. For example, I wouldn't
+normally put all SQLAlchemy-related classes in a single <tt class="docutils literal">models.py</tt> file.
+However, I've kept the code structure intentionally simple for this example to
+demonstrate the concepts.</p>
+<p>Hope this post could help some of you. Feel free to contact me if you have
+further questions or suggestions.</p>
+</div>
+
+
+                </div>
+
+                <div class="clearfix"></div>
+
+
+
+                <div class="post-meta-data">
+                    Categories:
+                        <a href="/tags/python/" rel="category tag">python</a>,                        <a href="/tags/pyramid/" rel="category tag">pyramid</a>,                        <a href="/tags/sqlalchemy/" rel="category tag">sqlalchemy</a>                </div>
+
+            </div>
+        </div>
+    </div>        </div>
+
+        <footer>
+            <div class="container footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="credits hidden-xs hidden-sm">Powered by <a href="https://blog.getpelican.com/">Pelican</a></div>
+                        <div class="credits">Based on theme 'Wu Wei' by <a href="http://equivocality.com" rel="designer">Jeff Ngan</a></div>
+                        <div class="credits hidden-xs">RSS feeds for <a href="https://codelike.com/feed/rss.xml">Entries</a></div>
+                        <div class="credits"><a href="https://codelike.com/legal_notice/">Legal Notice</a>
+                        </div>
+
+                        <div class="bottom-link"><a href="#top">Back to the top</a></div>
+                    </div>
+                </div>
+            </div>
+
+
+        </footer>
+
+
+    </body>
+</html>
