@@ -171,7 +171,13 @@ licenses; we recommend you read them, as their terms may differ from the
 terms above.
 
 
+ngx-clipboard
+MIT
+
 ngx-papaparse
+MIT
+
+ngx-window-token
 MIT
 
 papaparse
