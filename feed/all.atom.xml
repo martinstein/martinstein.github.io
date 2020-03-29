@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>codelike</title><link href="https://codelike.com/" rel="alternate"></link><link href="https://codelike.com/feed/all.atom.xml" rel="self"></link><id>https://codelike.com/</id><updated>2015-07-19T15:35:00+02:00</updated><entry><title>How to Serialize SQLALchemy Objects to JSON in Pyramid</title><link href="https://codelike.com/blog/2015/07/19/how-to-serialize-sqlalchemy-objects-to-json-in-pyramid/" rel="alternate"></link><published>2015-07-19T15:35:00+02:00</published><updated>2015-07-19T15:35:00+02:00</updated><author><name>Martin Stein</name></author><id>tag:codelike.com,2015-07-19:/blog/2015/07/19/how-to-serialize-sqlalchemy-objects-to-json-in-pyramid/</id><summary type="html">&lt;p&gt;So you are working on the backend for a single-page application in
+<feed xmlns="http://www.w3.org/2005/Atom"><title>codelike</title><link href="https://codelike.com/" rel="alternate"></link><link href="https://codelike.com/feed/all.atom.xml" rel="self"></link><id>https://codelike.com/</id><updated>2020-03-29T18:00:00+02:00</updated><entry><title>A Corona Dashboard</title><link href="https://codelike.com/blog/2020/03/29/a-corona-dashboard/" rel="alternate"></link><published>2020-03-29T18:00:00+02:00</published><updated>2020-03-29T18:00:00+02:00</updated><author><name>Martin Stein</name></author><id>tag:codelike.com,2020-03-29:/blog/2020/03/29/a-corona-dashboard/</id><summary type="html">&lt;p&gt;Many people probably have seen the informative dashboard for visualizing the spread of the coronavirus, developed by
+&lt;a class="reference external" href="https://systems.jhu.edu/"&gt;JHU CSSE&lt;/a&gt;
+(&lt;a class="reference external" href="https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6"&gt;link&lt;/a&gt;).
+The amazing folks at JHU CSSE also provide their data in a repository at
+&lt;a class="reference external" href="https://github.com/CSSEGISandData/COVID-19"&gt;Github&lt;/a&gt;, that is updated every 24 hours. Besides that dashboard,
+we have the &lt;a class="reference external" href="https://www.worldometers.info/coronavirus/"&gt;Worldometers&lt;/a&gt; site as …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Many people probably have seen the informative dashboard for visualizing the spread of the coronavirus, developed by
+&lt;a class="reference external" href="https://systems.jhu.edu/"&gt;JHU CSSE&lt;/a&gt;
+(&lt;a class="reference external" href="https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6"&gt;link&lt;/a&gt;).
+The amazing folks at JHU CSSE also provide their data in a repository at
+&lt;a class="reference external" href="https://github.com/CSSEGISandData/COVID-19"&gt;Github&lt;/a&gt;, that is updated every 24 hours. Besides that dashboard,
+we have the &lt;a class="reference external" href="https://www.worldometers.info/coronavirus/"&gt;Worldometers&lt;/a&gt; site as another
+great resource to stay informed about the developments in different countries.&lt;/p&gt;
+&lt;p&gt;In the past couple of weeks I have noticed myself jumping between these two sources constantly:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;I liked the information density of the JHU CSSE-dashboard where you could see a lot at a quick glance.&lt;/li&gt;
+&lt;li&gt;I liked the worldometers chart presentation, especially because it allows you to see the development of
+&lt;strong&gt;new cases per day&lt;/strong&gt; in a nice diagram.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I did wish there was a way to have both at the same time plus a way to compare those charts for different countries.
+My free-time lately was mostly spent at home, so I used the last ten days to build a tool
+to &amp;quot;scratch my own itch&amp;quot;. The result of that work is now online as a dashboard at
+&lt;a class="reference external" href="https://codelike.com/corona-dashboard/"&gt;https://codelike.com/corona-dashboard/&lt;/a&gt;. The initial number one complaint
+of my friends was: &amp;quot;Make it mobile-ready!&amp;quot;, so this weekend I added a responsive approach that allows you to see
+the two main sections:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;side-by-side on larger screen sizes.&lt;/li&gt;
+&lt;li&gt;in a tabbed UI on smaller screen sizes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I am continuously trying to improve the dashboard, so if you have any suggestions or feedback, feel
+free to contact me (email in the About-section). It might take me a bit to reply and/or to incorporate any
+changes due to my day job, but I appreciate any messages and will do my best.&lt;/p&gt;
+</content><category term="typescript"></category><category term="data-visualization"></category></entry><entry><title>How to Serialize SQLALchemy Objects to JSON in Pyramid</title><link href="https://codelike.com/blog/2015/07/19/how-to-serialize-sqlalchemy-objects-to-json-in-pyramid/" rel="alternate"></link><published>2015-07-19T15:35:00+02:00</published><updated>2015-07-19T15:35:00+02:00</updated><author><name>Martin Stein</name></author><id>tag:codelike.com,2015-07-19:/blog/2015/07/19/how-to-serialize-sqlalchemy-objects-to-json-in-pyramid/</id><summary type="html">&lt;p&gt;So you are working on the backend for a single-page application in
 Pyramid and need to serialize all kinds of objects to JSON? In this post
 we'll work our way up from the basic JSON-serialization built into Pyramid
 to a powerful approach for serializing SQLAlchemy objects.&lt;/p&gt;

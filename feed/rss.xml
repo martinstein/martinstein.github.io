@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>codelike</title><link>https://codelike.com/</link><description></description><lastBuildDate>Sun, 19 Jul 2015 15:35:00 +0200</lastBuildDate><item><title>How to Serialize SQLALchemy Objects to JSON in Pyramid</title><link>https://codelike.com/blog/2015/07/19/how-to-serialize-sqlalchemy-objects-to-json-in-pyramid/</link><description>&lt;p&gt;So you are working on the backend for a single-page application in
+<rss version="2.0"><channel><title>codelike</title><link>https://codelike.com/</link><description></description><lastBuildDate>Sun, 29 Mar 2020 18:00:00 +0200</lastBuildDate><item><title>A Corona Dashboard</title><link>https://codelike.com/blog/2020/03/29/a-corona-dashboard/</link><description>&lt;p&gt;Many people probably have seen the informative dashboard for visualizing the spread of the coronavirus, developed by
+&lt;a class="reference external" href="https://systems.jhu.edu/"&gt;JHU CSSE&lt;/a&gt;
+(&lt;a class="reference external" href="https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6"&gt;link&lt;/a&gt;).
+The amazing folks at JHU CSSE also provide their data in a repository at
+&lt;a class="reference external" href="https://github.com/CSSEGISandData/COVID-19"&gt;Github&lt;/a&gt;, that is updated every 24 hours. Besides that dashboard,
+we have the &lt;a class="reference external" href="https://www.worldometers.info/coronavirus/"&gt;Worldometers&lt;/a&gt; site as …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Martin Stein</dc:creator><pubDate>Sun, 29 Mar 2020 18:00:00 +0200</pubDate><guid isPermaLink="false">tag:codelike.com,2020-03-29:/blog/2020/03/29/a-corona-dashboard/</guid><category>typescript</category><category>data-visualization</category></item><item><title>How to Serialize SQLALchemy Objects to JSON in Pyramid</title><link>https://codelike.com/blog/2015/07/19/how-to-serialize-sqlalchemy-objects-to-json-in-pyramid/</link><description>&lt;p&gt;So you are working on the backend for a single-page application in
 Pyramid and need to serialize all kinds of objects to JSON? In this post
 we'll work our way up from the basic JSON-serialization built into Pyramid
 to a powerful approach for serializing SQLAlchemy objects.&lt;/p&gt;

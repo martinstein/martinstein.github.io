@@ -8,13 +8,13 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 
     <head>
-
+    
         <meta charset="utf-8">
         <!-- Use the .htaccess and remove these lines to avoid edge case issues.
            More info: h5bp.com/i/378 -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-        <title>codelike - Tags</title>
+        <title>codelike - A Corona Dashboard</title>
         <meta name="description" content="">
 
         <!-- Mobile viewport optimized: h5bp.com/viewport -->
@@ -36,6 +36,13 @@
         <script src="/theme/js/lib/modernizr-2.6.1.custom.min.js"></script>
         <script src="/theme/js/lib/jquery-1.11.0.min.js"></script>
         <script src="/theme/js/lib/bootstrap-3.1.1.min.js"></script>
+
+
+
+
+
+        <meta name="tags" content="typescript" />
+        <meta name="tags" content="data-visualization" />
 
     </head>
 
@@ -84,16 +91,59 @@
         </header>
 
         <div class="container main" role="main">
-    <h1>Tags</h1>
-    <ul>
-        <li><a href="https://codelike.com/tags/data-visualization/">data-visualization</a> (1)</li>
-        <li><a href="https://codelike.com/tags/programming/">programming</a> (1)</li>
-        <li><a href="https://codelike.com/tags/pyramid/">pyramid</a> (2)</li>
-        <li><a href="https://codelike.com/tags/python/">python</a> (3)</li>
-        <li><a href="https://codelike.com/tags/sqlalchemy/">sqlalchemy</a> (1)</li>
-        <li><a href="https://codelike.com/tags/typescript/">typescript</a> (1)</li>
-    </ul>
+<div class="post">
+        <div class="row">
+            <div class="col-sm-4 post-info">
+                <a name="a-corona-dashboard"></a>
+                <h1 class="title"><a href="/blog/2020/03/29/a-corona-dashboard/" rel="bookmark"
+                       title="Permanent Link to A Corona Dashboard">A Corona Dashboard</a></h1>
+                <div class="timestamp">March 29, 2020</div>
+
+            </div>
+
+            <div class="col-sm-8">
+                <div class="post-content">
+                            <p>Many people probably have seen the informative dashboard for visualizing the spread of the coronavirus, developed by
+<a class="reference external" href="https://systems.jhu.edu/">JHU CSSE</a>
+(<a class="reference external" href="https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6">link</a>).
+The amazing folks at JHU CSSE also provide their data in a repository at
+<a class="reference external" href="https://github.com/CSSEGISandData/COVID-19">Github</a>, that is updated every 24 hours. Besides that dashboard,
+we have the <a class="reference external" href="https://www.worldometers.info/coronavirus/">Worldometers</a> site as another
+great resource to stay informed about the developments in different countries.</p>
+<p>In the past couple of weeks I have noticed myself jumping between these two sources constantly:</p>
+<ul class="simple">
+<li>I liked the information density of the JHU CSSE-dashboard where you could see a lot at a quick glance.</li>
+<li>I liked the worldometers chart presentation, especially because it allows you to see the development of
+<strong>new cases per day</strong> in a nice diagram.</li>
+</ul>
+<p>I did wish there was a way to have both at the same time plus a way to compare those charts for different countries.
+My free-time lately was mostly spent at home, so I used the last ten days to build a tool
+to &quot;scratch my own itch&quot;. The result of that work is now online as a dashboard at
+<a class="reference external" href="https://codelike.com/corona-dashboard/">https://codelike.com/corona-dashboard/</a>. The initial number one complaint
+of my friends was: &quot;Make it mobile-ready!&quot;, so this weekend I added a responsive approach that allows you to see
+the two main sections:</p>
+<ul class="simple">
+<li>side-by-side on larger screen sizes.</li>
+<li>in a tabbed UI on smaller screen sizes.</li>
+</ul>
+<p>I am continuously trying to improve the dashboard, so if you have any suggestions or feedback, feel
+free to contact me (email in the About-section). It might take me a bit to reply and/or to incorporate any
+changes due to my day job, but I appreciate any messages and will do my best.</p>
+
+
+                </div>
+
+                <div class="clearfix"></div>
+
+
+
+                <div class="post-meta-data">
+                    Categories:
+                        <a href="/tags/typescript/" rel="category tag">typescript</a>,                        <a href="/tags/data-visualization/" rel="category tag">data-visualization</a>                </div>
+
+            </div>
         </div>
+    </div>        </div>
 
         <footer>
             <div class="container footer">
