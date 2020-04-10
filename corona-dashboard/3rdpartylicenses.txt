@@ -117,9 +117,6 @@ THE SOFTWARE.
 highcharts
 https://www.highcharts.com/license
 
-highcharts-angular
-SEE LICENSE IN <LICENSE>
-
 lodash
 MIT
 Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
