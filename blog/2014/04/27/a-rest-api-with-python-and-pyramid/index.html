@@ -139,7 +139,7 @@ project. Let's take blog posts as a simple example:</p>
 </dl>
 <p>Let's say we add two routes:</p>
 <div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">add_route</span><span class="p">(</span><span class="s1">&#39;posts_collection&#39;</span><span class="p">,</span> <span class="s1">&#39;/posts&#39;</span><span class="p">)</span>
-<span class="n">config</span><span class="o">.</span><span class="n">add_route</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">,</span> <span class="s1">&#39;/posts/{id}&#39;</span><span class="p">)</span>
+<span class="n">config</span><span class="o">.</span><span class="n">add_route</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span><span class="p">,</span> <span class="s1">&#39;/posts/</span><span class="si">{id}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 <p>Then, a fairly basic implementation of the web services might look like this:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyramid.httpexceptions</span> <span class="kn">import</span> <span class="n">HTTPOk</span>
@@ -203,8 +203,8 @@ let's extract the common code to a base class to make it re-usable:</p>
 <div class="highlight"><pre><span></span><span class="c1"># all your imports</span>
 
 <span class="k">class</span> <span class="nc">BaseView</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="n">item_cls</span> <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># Override this in child views</span>
-    <span class="n">schema_cls</span> <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># Override this in child views</span>
+    <span class="n">item_cls</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Override this in child views</span>
+    <span class="n">schema_cls</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Override this in child views</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">request</span> <span class="o">=</span> <span class="n">request</span>
@@ -278,7 +278,7 @@ for every single method in every child view? The answer is: We build
 ourselves a custom decorator called <tt class="docutils literal">register_views</tt> that does
 all the <tt class="docutils literal">view_config</tt> work for us:</p>
 <div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">register_views</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">route</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">collection_route</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">route</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">collection_route</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">route</span> <span class="o">=</span> <span class="n">route</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">collection_route</span> <span class="o">=</span> <span class="n">collection_route</span>
 
